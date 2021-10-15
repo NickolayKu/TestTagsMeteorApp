@@ -1,0 +1,44 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  background-color: #f8f9fa !important; 
+}
+.dice-logo-icon{
+  margin-right: 5px;
+  margin-top: -4px;
+}
+
+*:focus, *:active, *:hover {
+  outline: none !important;
+  box-shadow:none !important; 
+}
+
+.navbar{
+  padding: 3px !important; 
+}
+
+.navbar-brand{
+  margin-left: auto !important; 
+  margin-right: auto !important; 
+}
+
+.nav-item button{
+  color: #dc3545;
+}
+.nav-item:last-child button{
+  color: #0dcaf0;
+}
+
+.nav-pills .nav-link{
+  padding-top: 5px;
+  padding-bottom: 6px;
+}
+
+.nav-pills .nav-link.active{
+  background-color: #6c757d !important; 
+}
+
+.offcanvas-bottom{
+  border-top: none !important; 
+  border-radius: 1.2em 1.2em 0 0;
+}
