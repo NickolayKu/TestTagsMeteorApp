@@ -4,9 +4,7 @@ import { Button, Form, Offcanvas } from 'react-bootstrap';
 
 export function GenreTagsList() {
  
-  const [genreTags, setGenreTags] = useState(
-    GenreTagsCollection.find({}, { sort: { title: -1 } }).fetch()
-  );
+  const [genreTags, setGenreTags] = useState([]);
 
   useEffect(() => {
     async function loadDefaultGenreTags() {
@@ -15,7 +13,7 @@ export function GenreTagsList() {
         setGenreTags(responseGenreTags)
         console.log(responseGenreTags);
       }
-        console.log("loading genretags");
+        console.log("loading genre tags");
     }
     loadDefaultGenreTags()
   });

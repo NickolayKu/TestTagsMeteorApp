@@ -4,9 +4,7 @@ import { Button, Form, Offcanvas } from 'react-bootstrap';
 
 export function RatingTagsList() {
  
-  const [ratingTags, setRatingTags] = useState(
-    RatingTagsCollection.find({}, { sort: { title: -1 } }).fetch()
-  );
+  const [ratingTags, setRatingTags] = useState([]);
 
   useEffect(() => {
     async function loadDefaultRatingTags() {

@@ -9,11 +9,11 @@ export function MainTagsList() {
   useEffect(() => {
     async function loadDefaultTags() {
       if(mainTags == ""){
-        let response = await MainTagsCollection.find({}, { sort: { title: -1 } }).fetch()
+        let response = MainTagsCollection.find({}, { sort: { title: -1 } }).fetch()
         setMainTags(response)
         console.log(response);
       }
-        console.log("loading maintags");
+        console.log("loading main tags");
     }
     loadDefaultTags()
   });
