@@ -7,7 +7,7 @@ export const GenreTagsList = () => {
  
   const [genreTags, setGenreTags] = useState([]);
 
-  const genreTagsDefault = useTracker(() => GenreTagsCollection.find({}, { sort: { title: -1 } }).fetch() );
+  const genreTagsDefault = useTracker(() => GenreTagsCollection.find({}, { sort: { title: 1 } }).fetch() );
 
   var genreTagsDB = "";  
 
@@ -47,7 +47,7 @@ export const GenreTagsList = () => {
         }       
     } else {
         setGenreTags(
-          GenreTagsCollection.find({}, { sort: { title: -1 } }).fetch()
+          GenreTagsCollection.find({}, { sort: { title: 1 } }).fetch()
         )   
         setErrorShow('none');    
         setTagsShow('block'); 

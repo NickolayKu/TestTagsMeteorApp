@@ -7,7 +7,7 @@ export const MainTagsList = () => {
 
   const [mainTags, setMainTags] = useState([]);
 
-  const mainTagsDefault = useTracker(() => MainTagsCollection.find({}, { sort: { title: -1 } }).fetch() );
+  const mainTagsDefault = useTracker(() => MainTagsCollection.find({}, { sort: { title: 1 } }).fetch() );
 
   var mainTagsDB = "";
   
@@ -53,7 +53,7 @@ export const MainTagsList = () => {
         }       
     } else {
         setMainTags(
-            MainTagsCollection.find({}, { sort: { title: -1 } }).fetch()
+            MainTagsCollection.find({}, { sort: { title: 1 } }).fetch()
         )   
         setErrorShow('none');    
         setTagsShow('block'); 
