@@ -7,7 +7,7 @@ import { Info } from './Info.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tabs, Tab, Container } from 'react-bootstrap';
 
-export function App() {
+export const App = () => {
 
 return (
   <>

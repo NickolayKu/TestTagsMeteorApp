@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useTracker } from 'meteor/react-meteor-data';
 import { RatingTagsCollection } from '../api/RatingTagsCollection';
 import { Button, Form, Offcanvas } from 'react-bootstrap';
 
-export function RatingTagsList() {
+export const RatingTagsList = () => { 
  
   const [ratingTags, setRatingTags] = useState([]);
 
-  useEffect(() => {
-    async function loadDefaultRatingTags() {
-      if(ratingTags == ""){
-        let responseRatingTags = RatingTagsCollection.find().fetch()
-        setRatingTags(responseRatingTags)
-        console.log(responseRatingTags);
-      }
-        console.log("loading rating tags");
-    }
-    loadDefaultRatingTags()
-  });
+  const ratingTagsDefault = useTracker(() => RatingTagsCollection.find().fetch() );
+
+  var ratingTagsDB = "";  
+
+  // useEffect(() => {
+  //   async function loadDefaultRatingTags() {
+  //     if(ratingTags == ""){
+  //       let responseRatingTags = RatingTagsCollection.find().fetch()
+  //       setRatingTags(responseRatingTags)
+  //       console.log(responseRatingTags);
+  //     }
+  //       console.log("loading rating tags");
+  //   }
+  //   loadDefaultRatingTags()
+  // });
 
   const [errorShow, setErrorShow] = useState('none');
 
@@ -49,6 +54,12 @@ export function RatingTagsList() {
     }
   };
 
+  if(ratingTags == ""){
+    ratingTagsDB = ratingTagsDefault;
+  } else {
+    ratingTagsDB = mainTags;
+  }
+
   return (
   <>
         <Form.Group className="mb-3" controlId="searchMainTags">
@@ -56,7 +67,7 @@ export function RatingTagsList() {
         </Form.Group>
         <span className="text-center pt-3 text-muted" style={{display: errorShow, opacity: "0.5"}}>Ничего не найдено</span>
         <div style={{display: tagsShow}} className="pt-1"> 
-      {ratingTags.map(
+      {ratingTagsDB.map(
         ratingTag => 
         {
             if(ratingTag.hightlight === true){ 

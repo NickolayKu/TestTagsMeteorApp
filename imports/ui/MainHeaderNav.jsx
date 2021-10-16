@@ -3,7 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import { GiDiceTwentyFacesOne } from "react-icons/gi";
 import { IconContext } from "react-icons";
 
-export function MainHeaderNav() {
+export const MainHeaderNav = () => {    
 
     return (
       <Navbar bg="dark" variant="dark shadow mb-2">

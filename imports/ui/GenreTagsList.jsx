@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useTracker } from 'meteor/react-meteor-data';
 import { GenreTagsCollection } from '../api/GenreTagsCollection';
 import { Button, Form, Offcanvas } from 'react-bootstrap';
 
-export function GenreTagsList() {
+export const GenreTagsList = () => {
  
   const [genreTags, setGenreTags] = useState([]);
 
-  useEffect(() => {
-    async function loadDefaultGenreTags() {
-      if(genreTags == ""){
-        let responseGenreTags = GenreTagsCollection.find({}, { sort: { title: -1 } }).fetch()
-        setGenreTags(responseGenreTags)
-        console.log(responseGenreTags);
-      }
-        console.log("loading genre tags");
-    }
-    loadDefaultGenreTags()
-  });
+  const genreTagsDefault = useTracker(() => GenreTagsCollection.find({}, { sort: { title: -1 } }).fetch() );
+
+  var genreTagsDB = "";  
+
+  // useEffect(() => {
+  //   async function loadDefaultGenreTags() {
+  //     if(genreTags == ""){
+  //       let responseGenreTags = GenreTagsCollection.find({}, { sort: { title: -1 } }).fetch()
+  //       setGenreTags(responseGenreTags)
+  //       console.log(responseGenreTags);
+  //     }
+  //       console.log("loading genre tags");
+  //   }
+  //   loadDefaultGenreTags()
+  // });
 
   const [errorShow, setErrorShow] = useState('none');
 
@@ -49,7 +54,11 @@ export function GenreTagsList() {
     }
   };
 
-  
+  if(genreTags == ""){
+    genreTagsDB = genreTagsDefault;
+  } else {
+    genreTagsDB = genreTags;
+  }
 
   return (   
     <>
@@ -58,7 +67,7 @@ export function GenreTagsList() {
         </Form.Group>
         <span className="text-center pt-3 text-muted" style={{display: errorShow, opacity: "0.5"}}>Ничего не найдено</span>
         <div style={{display: tagsShow}} className="pt-1">   
-            {genreTags.map(
+            {genreTagsDB.map(
                 genreTag => 
                 <Button key={genreTag._id} onClick={(e) => handleShow(genreTag.title, genreTag.description)} variant="outline-secondary rounded-pill me-2 mt-1 mb-1">#{genreTag.title}</Button>
             )}

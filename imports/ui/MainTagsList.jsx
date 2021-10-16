@@ -1,22 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useTracker } from 'meteor/react-meteor-data';
 import { MainTagsCollection } from '../api/MainTagsCollection';
 import { Button, Form, Offcanvas } from 'react-bootstrap';
 
-export function MainTagsList() {
- 
+export const MainTagsList = () => {    
+
   const [mainTags, setMainTags] = useState([]);
 
-  useEffect(() => {
-    async function loadDefaultTags() {
-      if(mainTags == ""){
-        let response = MainTagsCollection.find({}, { sort: { title: -1 } }).fetch()
-        setMainTags(response)
-        console.log(response);
-      }
-        console.log("loading main tags");
-    }
-    loadDefaultTags()
-  });
+  const mainTagsDefault = useTracker(() => MainTagsCollection.find({}, { sort: { title: -1 } }).fetch() );
+
+  var mainTagsDB = "";
+  
+
+//   const mainTagsDef = useTracker(() =>
+//     MainTagsCollection.find({}, { sort: { title: -1 } }).fetch()
+//   );
+//   console.log(mainTagsDef);
+
+//   useEffect(() => {
+//     async function loadDefaultTags() {
+//       if(mainTags == ""){
+//         let response = MainTagsCollection.find({}, { sort: { title: -1 } }).fetch()
+//         setMainTags(response)
+//         console.log(response);
+//       }
+//         console.log("loading main tags");
+//     }
+//     loadDefaultTags()
+//   });
 
   const [errorShow, setErrorShow] = useState('none');
 
@@ -49,7 +60,11 @@ export function MainTagsList() {
     }
   };
 
-  
+  if(mainTags == ""){
+    mainTagsDB = mainTagsDefault;
+  } else {
+    mainTagsDB = mainTags;
+  }
 
   return (   
     <>
@@ -58,7 +73,7 @@ export function MainTagsList() {
         </Form.Group>
         <span className="text-center pt-3 text-muted" style={{display: errorShow, opacity: "0.5"}}>Ничего не найдено</span>
         <div style={{display: tagsShow}} className="pt-1">   
-            {mainTags.map(
+            {mainTagsDB.map(
                 mainTag => 
                 <Button key={mainTag._id} onClick={(e) => handleShow(mainTag.title, mainTag.description)} variant="outline-secondary rounded-pill me-2 mt-1 mb-1">#{mainTag.title}</Button>
             )}
